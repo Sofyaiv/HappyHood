@@ -1,0 +1,223 @@
+@import url('varibles.css');
+@import url('reset.css');
+@import url('header.css');
+/* @import url('section-hero.css'); */
+@import url('sidebar.css');
+@import url('card.css');
+
+body {
+  --side-size: auto;
+  --body-size: 1440px;
+
+  min-block-size: 100dvh;
+  display: grid;
+  grid-template-columns:
+    var(--side-size)
+    minmax(0, var(--body-size))
+    var(--side-size);
+  grid-template-rows: min-content 1fr min-content;
+  column-gap: var(--gap-20);
+  position: relative;
+  color: var(--black);
+  background-color: #fafafa;
+  font-family: 'Roboto', sans-serif;
+  text-rendering: optimizeSpeed;
+  scrollbar-gutter: stable;
+  overflow: hidden;
+
+  & > :where(header, footer, main) {
+    grid-column: 2 / -2;
+  }
+}
+
+.green-wa {
+  color: var(--whatsapp-dark-green);
+}
+.blue-color {
+  color: var(--primary);
+}
+
+.main {
+  display: grid;
+  grid-template-columns: 1fr 460px;
+  column-gap: var(--gap-48);
+  overflow: hidden;
+  transition: 500ms;
+
+  & :where(.complains, .sidebar) {
+    overflow: hidden;
+  }
+}
+
+.scroll-area {
+  --header-height: 52px;
+  --footer-height: 36px;
+
+  max-height: calc(100dvh - var(--header-height) - var(--footer-height));
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-block: var(--gap-24);
+
+  & > * {
+    min-inline-size: 100%;
+  }
+}
+
+.complains {
+  & .scroll-area {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--gap-18);
+  }
+}
+
+.sidebar {
+  display: grid;
+  min-inline-size: 100%;
+}
+
+@media screen and (max-width: 1024px) {
+  body {
+    --side-size: var(--gap-20);
+    column-gap: 0;
+  }
+
+  .header:has([id='main-flow']:checked) ~ .main {
+    grid-template-columns: 1fr 0fr;
+  }
+
+  .header:has([id='sidebar-flow']:checked) ~ .main {
+    grid-template-columns: 0fr 1fr;
+  }
+
+  .main {
+    column-gap: 0;
+  }
+
+  .scroll-area {
+    --header-height: 96px;
+    --footer-height: 36px;
+
+    min-inline-size: calc(100vw - var(--gap-20) * 2);
+
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+}
+
+.btn {
+  inline-size: fit-content;
+  padding: 1.225rem 2.25rem;
+  background-color: var(--whatsapp-dark-green);
+  border-radius: 50vw;
+  color: var(--white);
+  font-size: var(--font-24);
+  font-weight: bold;
+  text-align: center;
+  white-space: nowrap;
+  cursor: pointer;
+
+  &[href] {
+    text-decoration: none;
+  }
+}
+
+.phone {
+  grid-area: phone;
+  justify-self: center;
+  inline-size: 270px;
+  block-size: 540px;
+  position: relative;
+  border-radius: var(--border-corner-16);
+  border: 3px solid var(--black);
+  box-shadow: -5px 5px 0 var(--black);
+
+  &::after,
+  &::before {
+    content: '';
+    position: absolute;
+    background-color: var(--black);
+    inline-size: 100%;
+
+    border-radius: var(--border-corner-16);
+    z-index: 100;
+  }
+
+  &::before {
+    block-size: 1.75rem;
+    inline-size: 50%;
+    inset-block-start: 1rem;
+    inset-inline: 25%;
+  }
+
+  &::after {
+    block-size: 0.5rem;
+    inline-size: 40%;
+    inset-inline: 33%;
+    inset-block-end: 1rem;
+  }
+}
+
+.select-city {
+  min-inline-size: 250px;
+  position: relative;
+  font-size: var(--font-24);
+  border-radius: var(--border-corner-8);
+  border: 1px solid var(--black);
+
+  & .icon {
+    inline-size: var(--font-24);
+    aspect-ratio: 1;
+    position: absolute;
+    inset-inline-end: 0.75rem;
+    inset-block: 0.85rem;
+  }
+
+  & select {
+    padding: var(--gap-12);
+    min-inline-size: 100%;
+  }
+}
+
+/* SECTION */
+section.block {
+  display: grid;
+  row-gap: var(--gap-72);
+  justify-items: center;
+}
+
+/* section TAKE ACTION */
+#take-action {
+  container: take-action / inline-size;
+}
+.step {
+  max-inline-size: 960px;
+  display: flex;
+  gap: var(--gap-48);
+  align-items: center;
+  justify-items: center;
+
+  &:nth-of-type(1) {
+    margin-block-end: var(--gap-80);
+  }
+
+  & h2 {
+    flex: 0 1 auto;
+    color: var(--grey-500);
+    font-size: clamp(var(--font-24), 4vw, var(--font-32));
+    font-weight: 400;
+    margin-inline: auto;
+    line-height: 1.5;
+  }
+
+  & .phone {
+    min-inline-size: 270px;
+  }
+}
+
+/* section FAQ */
+
+.footer {
+  text-align: center;
+  padding-block: var(--gap-8);
+}
